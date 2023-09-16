@@ -1,6 +1,5 @@
 const formElement = document.querySelector(".form");
 
-
 const inputElement = document.querySelector(".input");
 
 const ulElement = document.querySelector(".list");
@@ -12,52 +11,49 @@ if (list) {
   });
 }
 
-
-formElement.addEventListener('submit', (event)=>{
-    event.preventDefault();
-    toDoList();
-
+formElement.addEventListener("submit", (event) => {
+  event.preventDefault();
+  toDoList();
 });
 
-function toDoList(task){
-    let newTask = inputElement.value;
-    if (task) {
+function toDoList(task) {
+  let newTask = inputElement.value;
+  if (task) {
     newTask = task.name;
   }
-    const liElement = document.createElement('li');
-    if (task && task.checked) {
+  const liElement = document.createElement("li");
+  if (task && task.checked) {
     liElement.classList.add("checked");
   }
-    liElement.innerText = newTask;
-    ulElement.appendChild(liElement)
-    inputElement.value =""
-    const checkButton = document.createElement('div')
-    checkButton.innerHTML = `<i class="fa-regular fa-circle-check">`
-    liElement.appendChild(checkButton);
-    const cancelButton = document.createElement('div')
-    cancelButton.innerHTML = `<i class="fa-regular fa-circle-xmark">`
-    liElement.appendChild(cancelButton)
+  liElement.innerText = newTask;
+  ulElement.appendChild(liElement);
+  inputElement.value = "";
+  const checkButton = document.createElement("div");
+  checkButton.innerHTML = `<i class="fa-regular fa-circle-check">`;
+  liElement.appendChild(checkButton);
+  const cancelButton = document.createElement("div");
+  cancelButton.innerHTML = `<i class="fa-regular fa-circle-xmark">`;
+  liElement.appendChild(cancelButton);
 
-    checkButton.addEventListener('click',()=>{
-        liElement.classList.toggle('checked')
-        updateLocalStorage()
-    })
-    cancelButton.addEventListener('click', ()=>{
-        liElement.remove()
-        updateLocalStorage()
-    })
-    updateLocalStorage()
+  checkButton.addEventListener("click", () => {
+    liElement.classList.toggle("checked");
+    updateLocalStorage();
+  });
+  cancelButton.addEventListener("click", () => {
+    liElement.remove();
+    updateLocalStorage();
+  });
+  updateLocalStorage();
 }
 
-
 function updateLocalStorage() {
-    const liEls =document.querySelectorAll('li')
-    list = [];
-    liEls.forEach((liEl) =>{
-        list.push({
-            name: liEl.innerText,
-            checked: liEl.classList.contains('checked'),
-        });
+  const liEls = document.querySelectorAll("li");
+  list = [];
+  liEls.forEach((liEl) => {
+    list.push({
+      name: liEl.innerText,
+      checked: liEl.classList.contains("checked"),
     });
-    localStorage.setItem('list', JSON.stringify(list))
+  });
+  localStorage.setItem("list", JSON.stringify(list));
 }
