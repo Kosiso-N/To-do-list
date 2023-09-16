@@ -6,10 +6,12 @@ const inputElement = document.querySelector(".input");
 const ulElement = document.querySelector(".list");
 
 let list = JSON.parse(localStorage.getItem("list"));
-
-list.forEach((task)=>{
+if (list) {
+  list.forEach((task) => {
     toDoList(task);
-})
+  });
+}
+
 
 formElement.addEventListener('submit', (event)=>{
     event.preventDefault();
@@ -22,12 +24,9 @@ function toDoList(task){
     if (task) {
     newTask = task.name;
   }
-
-
-
     const liElement = document.createElement('li');
     if (task && task.checked) {
-    liEl.classList.add("checked");
+    liElement.classList.add("checked");
   }
     liElement.innerText = newTask;
     ulElement.appendChild(liElement)
@@ -53,7 +52,7 @@ function toDoList(task){
 
 function updateLocalStorage() {
     const liEls =document.querySelectorAll('li')
-    list =[];
+    list = [];
     liEls.forEach((liEl) =>{
         list.push({
             name: liEl.innerText,
